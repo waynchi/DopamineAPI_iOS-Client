@@ -1,0 +1,91 @@
+// !$*UTF8*$!
+{
+	84F25EB019B61E260021E085 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = B8C213DD19CC1626009FF61C /* DopamineDummy iPhone */;
+		activeTarget = 84F25EB719B61E260021E085 /* DopamineDummy iPhone */;
+		codeSenseManager = B8C213EF19CC1649009FF61C /* Code sense */;
+		executables = (
+			B8C213DD19CC1626009FF61C /* DopamineDummy iPhone */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					356,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 432805414;
+			PBXWorkspaceStateSaveDate = 432805414;
+		};
+		sourceControlManager = B8C213EE19CC1649009FF61C /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	84F25EB719B61E260021E085 /* DopamineDummy iPhone */ = {
+		activeExec = 0;
+		executables = (
+			B8C213DD19CC1626009FF61C /* DopamineDummy iPhone */,
+		);
+	};
+	84F25ED819B61E270021E085 /* DopamineDummy iPhoneTests */ = {
+		activeExec = 0;
+	};
+	B8C213DD19CC1626009FF61C /* DopamineDummy iPhone */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "DopamineDummy iPhone";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	B8C213EE19CC1649009FF61C /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	B8C213EF19CC1649009FF61C /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+}
