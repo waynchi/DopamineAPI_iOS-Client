@@ -103,9 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				84F25EF319B623660021E085 /* URIBuilder.h */,
-				84F25EF419B623660021E085 /* URIBuilder.m */,
 				84F25EF019B6209C0021E085 /* DopamineRequest.h */,
 				84F25EF119B6209C0021E085 /* DopamineRequest.m */,
+				84F25EF419B623660021E085 /* URIBuilder.m */,
 				84C8E15319B9513000325E38 /* DopamineBase.h */,
 				84C8E15419B9513000325E38 /* DopamineBase.m */,
 				84C8E15A19B9561900325E38 /* DopamineConstants.h */,

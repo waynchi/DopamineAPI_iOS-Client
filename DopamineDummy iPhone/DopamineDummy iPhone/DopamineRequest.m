@@ -28,7 +28,7 @@
     else if (requestType == TRACK)
         url = [uriBuilder getURI:@"/track/"];
     else if (requestType == REWARD)
-        url = [uriBuilder getURI:@"/track/"];
+        url = [uriBuilder getURI:@"/reinforce/"];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
