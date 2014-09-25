@@ -46,6 +46,8 @@ static MyDopamine* sharedInstance;
     
     [_dopamineBase addAction:_clickReinforcementButton];
     
+    [_dopamineBase sendInitRequest];
+    
     [self sendTest];
     return self;
 }

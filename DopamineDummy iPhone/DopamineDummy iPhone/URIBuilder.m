@@ -21,17 +21,7 @@
     NSURL* url;
     NSMutableString *uri = [NSMutableString stringWithString:@"https://api.usedopamine.com/v2/app/"];
     [uri appendString:appID];
-//    switch(*type){
-//        case INIT:
-//            [uri appendString:@"/init/"];
-//            break;
-//        case TRACK:
-//            [uri appendString:@"/track/"];
-//            break;
-//        case REWARD:
-//            [uri appendString:@"/reinforce/"];
-//            break;
-//    }
+    //appends the string of the request type : Init Track Reinforce
     [uri appendString:requestType];
     url = [[NSURL alloc] initWithString:uri];
     return url;

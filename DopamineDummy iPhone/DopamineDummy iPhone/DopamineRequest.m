@@ -8,6 +8,7 @@
 
 #import "DopamineRequest.h"
 #import "DopamineBase.h"
+#import <AdSupport/ASIdentifierManager.h>
 
 @implementation DopamineRequest
 
@@ -17,6 +18,7 @@
     self = [super init];
     dopamineBase = base;
     uriBuilder = [[URIBuilder alloc] init:[dopamineBase appID]];
+    [self setUUID];
     return self;
 }
 
@@ -36,7 +38,14 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
-    NSString *jsonString = @"<data><item>Item 1</item><item>Item 2</item></data>";
+    NSString *jsonString;
+    if(requestType == INIT)
+        jsonString = [self getInitRequest];
+    else if (requestType == TRACK)
+        url = [uriBuilder getURI:@"/track/"];
+    else if (requestType == REWARD)
+        url = [uriBuilder getURI:@"/reinforce/"];
+   
     
     [request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
     
@@ -48,10 +57,22 @@
     responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:NULL error:NULL];
     
     NSString* response = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    
+    // parse response
     NSLog(response);
     
-//    [self getBaseRequest:_dopamineBase];
-    
+}
+
+-(void)setUUID
+{
+    if(_advertisingIdentifier == nil)
+    {
+        _advertisingIdentifier = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+    }
+    if(_adid == nil)
+    {
+        _adid = [_advertisingIdentifier UUIDString];
+    }
 }
 
 -(NSData*)getBaseRequest
@@ -71,6 +92,17 @@
     
     NSLog(jsonData);
     return jsonData;
+}
+
+-(NSString*)getInitRequest
+{
+    //GetBase <- Append to Base Init Specific fields (dicitonary)
+    //
+    NSString *jsonString;
+    
+    
+    return jsonString;
+    
 }
 
 

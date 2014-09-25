@@ -32,5 +32,6 @@
 //+(NSArray*) reinforce:(DopamineAction*) action;
 -(void) track:(NSString*) eventName;
 -(void)addAction:(DopamineAction*) action;
+-(void)sendInitRequest;
 
 @end

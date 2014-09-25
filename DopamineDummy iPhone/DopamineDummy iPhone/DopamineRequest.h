@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) DopamineBase *dopamineBase;
 @property (nonatomic, strong) URIBuilder *uriBuilder;
+@property (nonatomic, readonly) NSUUID *advertisingIdentifier;
+@property (nonatomic, strong) NSString *adid;
 
 typedef enum{
     INIT=0,
@@ -24,5 +26,6 @@ typedef enum{
 
 -(id)init:(DopamineBase*) base;
 -(void)sendRequest:(RequestType*) requestType;
+-(void)setUUID;
 
 @end
