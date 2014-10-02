@@ -9,6 +9,7 @@
 #import "DopamineRequest.h"
 #import "DopamineBase.h"
 #import <AdSupport/ASIdentifierManager.h>
+#include <CommonCrypto/CommonDigest.h>
 
 @implementation DopamineRequest
 
@@ -58,6 +59,9 @@
     
     NSString* response = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
     
+    //To Debug buildID
+    NSLog(@"This is %@", [self getBuildID]);
+    
     // parse response
     NSLog(response);
     
@@ -103,6 +107,50 @@
     
     return jsonString;
     
+}
+
+-(NSString*)getBuildID
+{
+    NSString *SHA1BuildID;
+    NSMutableString *buildID = nil;
+    
+    //Loop Through actions
+    for(DopamineAction* action in dopamineBase.actions)
+    {
+        [buildID appendString:(action.actionName)];
+        NSLog(@"Adding Action %@", action.actionName);
+        //Loop through feedback
+        for(NSString* feedback in action.feedbackFunctions)
+        {
+            [buildID appendString:(feedback)];
+            [buildID appendString:@"Feedback"];
+            NSLog(@"Adding Feedback %@", feedback);
+        }
+        for(NSString* reward in action.rewardFunctions)
+        {
+            [buildID appendString:(reward)];
+            [buildID appendString:@"Reward"];
+            NSLog(@"Adding Reward %@", reward);
+        }
+        //Loop through rewards
+    }
+    
+    //Not sure what we want to happen for a nil string. Right now it returns the nil SHA1 which is
+    //da39a3ee5e6b4b0d3255bfef95601890afd80709
+    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
+    NSData *stringBytes = [buildID dataUsingEncoding: NSUTF8StringEncoding]; /* or some other encoding */
+    if(CC_SHA1([stringBytes bytes], [stringBytes length], digest))
+    {
+        /* SHA-1 hash has been calculated and stored in 'digest'. */
+        NSMutableString *buffer = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH];
+        
+        for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++){
+            [buffer appendFormat:@"%02x", digest[i]];
+        }
+        SHA1BuildID = buffer;
+        return SHA1BuildID;
+    }
+    return nil;
 }
 
 

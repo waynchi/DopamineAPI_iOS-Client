@@ -53,6 +53,7 @@
 
 +(NSString*) getInitRequest
 {
+    
     // put stuff into json object
     // utc time and local time
     return nil;
