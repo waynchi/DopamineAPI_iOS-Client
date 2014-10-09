@@ -115,6 +115,7 @@
     NSMutableString *buildID = nil;
     
     //Loop Through actions
+    [buildID appendString:(@"pairings:")];
     for(DopamineAction* action in dopamineBase.actions)
     {
         [buildID appendString:(action.actionName)];
