@@ -82,13 +82,34 @@
 -(NSData*)getBaseRequest
 {
     NSArray *credentialFieldNames = [NSArray arrayWithObjects:
+                                     json_CLIENTOS_string,
+                                     json_CLIENTOSVERSION_int,
+                                     json_CLIENTAPIVERSION_string,
                                      json_KEY_string,
-                                     json_TOKEN_string
+                                     json_TOKEN_string,
+                                     json_VERSIONID_string,
+                                     json_IDENTITY_keyvaluearray,
+                                     json_BUILD_string,
+                                     json_UTC_long,
+                                     json_LOCALTIME_long
                                      , nil];
+    //Setting Times
+    long utcTime = CFAbsoluteTimeGetCurrent();
+    long localTime = utcTime + [[NSTimeZone defaultTimeZone] secondsFromGMTForDate:([NSDate date])];
+    
     NSArray *credentialValues = [NSArray arrayWithObjects:
+                                 [dopamineBase clientOS],
+                                 [dopamineBase clientOSversion],
+                                 [dopamineBase clientAPIversion],
                                  [dopamineBase key],
                                  [dopamineBase token],
+                                 [dopamineBase versionID],
+                                 [dopamineBase identity],
+                                 [dopamineBase build],
+                                 utcTime,
+                                 localTime,
                                  nil];
+    
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:credentialValues forKeys:credentialFieldNames];
     
     NSError *error;
