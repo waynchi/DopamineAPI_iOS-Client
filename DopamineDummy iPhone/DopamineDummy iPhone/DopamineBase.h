@@ -18,8 +18,8 @@
 @property (nonatomic, strong) NSString* token;
 @property (nonatomic, strong) NSString* versionID;
 @property (nonatomic, strong) NSString* build;
-@property (nonatomic, strong) NSMutableSet* rewardFunctions;   //These are not used. They are added from the Dopamine Action.h
-@property (nonatomic, strong) NSMutableSet* feedbackFunctions; //These are not used. They are added from the Dopamine Action.h
+@property (nonatomic, strong) NSMutableSet* rewardFunctions;
+@property (nonatomic, strong) NSMutableSet* feedbackFunctions; 
 @property (nonatomic, strong) NSMutableOrderedSet* actions;
 @property (nonatomic, strong) NSMutableDictionary* identity;
 @property (nonatomic, strong) NSMutableDictionary* metaData;
@@ -30,6 +30,8 @@
 
 -(id)initWithAppID:(NSString*)appID andVersionID:(NSString*)versionID andKey:(NSString*)key andToken:(NSString*)token;
 //+(NSArray*) reinforce:(DopamineAction*) action;
+-(NSString*) setBuildID;
+-(void) setIdent:(NSString*) IDTYPE andUniqueID:(NSString*)uniqueID;
 -(void) track:(NSString*) eventName;
 -(void)addAction:(DopamineAction*) action;
 -(void)sendInitRequest;

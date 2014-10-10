@@ -88,14 +88,20 @@
                                      json_KEY_string,
                                      json_TOKEN_string,
                                      json_VERSIONID_string,
-                                     json_IDENTITY_keyvaluearray,
+                                     //json_IDENTITY_keyvaluearray,
                                      json_BUILD_string,
                                      json_UTC_long,
-                                     json_LOCALTIME_long
-                                     , nil];
+                                     json_LOCALTIME_long,
+                                     nil];
     //Setting Times
     long utcTime = CFAbsoluteTimeGetCurrent();
     long localTime = utcTime + [[NSTimeZone defaultTimeZone] secondsFromGMTForDate:([NSDate date])];
+    
+     _utcTime = [[NSNumber alloc] initWithLong:utcTime];
+    _localTime =[[NSNumber alloc] initWithLong:localTime];
+    
+    
+    
     
     NSArray *credentialValues = [NSArray arrayWithObjects:
                                  [dopamineBase clientOS],
@@ -104,10 +110,10 @@
                                  [dopamineBase key],
                                  [dopamineBase token],
                                  [dopamineBase versionID],
-                                 [dopamineBase identity],
+                                 //[dopamineBase identity],
                                  [dopamineBase build],
-                                 utcTime,
-                                 localTime,
+                                 _utcTime,
+                                 _localTime,
                                  nil];
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:credentialValues forKeys:credentialFieldNames];
@@ -115,16 +121,40 @@
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSLog(jsonData);
+    NSLog(@"%@", jsonData);
     return jsonData;
 }
 
 -(NSString*)getInitRequest
 {
     //GetBase <- Append to Base Init Specific fields (dicitonary)
-    //
-    NSString *jsonString;
+    NSMutableString *jsonString;
     
+    NSArray *initFieldNames = [NSArray arrayWithObjects:
+                           json_REWARDFUNCTIONS_stringarray,
+                           json_FEEDBACKFUNCTIONS_stringarray
+                           , nil];
+    NSArray *initValues = [NSArray arrayWithObjects:
+                           [dopamineBase rewardFunctions],
+                           [dopamineBase feedbackFunctions]
+                           , nil];
+    
+    
+    //NSDictionary* initDict = [NSDictionary dictionaryWithObjects:initValues forKeys:initFieldNames];
+    
+    //Completely wrong
+    NSMutableData* base = [[NSMutableData alloc] initWithData:([self getBaseRequest])];
+    
+    NSError* error;
+    //NSData* initRequest = [NSJSONSerialization dataWithJSONObject:initDict options:NSJSONWritingPrettyPrinted error:&error];
+    
+    //[base appendData:initRequest];
+    
+    jsonString = [[NSMutableString alloc] initWithData:base encoding:NSUTF8StringEncoding];
+    
+    [jsonString appendString:[self getBuildID]];
+    
+   // NSLog(@"%@", jsonString);
     
     return jsonString;
     

@@ -17,6 +17,8 @@
 @property (nonatomic, strong) URIBuilder *uriBuilder;
 @property (nonatomic, readonly) NSUUID *advertisingIdentifier;
 @property (nonatomic, strong) NSString *adid;
+@property (nonatomic, strong) NSNumber* utcTime;
+@property (nonatomic, strong) NSNumber* localTime;
 
 typedef enum{
     INIT=0,
