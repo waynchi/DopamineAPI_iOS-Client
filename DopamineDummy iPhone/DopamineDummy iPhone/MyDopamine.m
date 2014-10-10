@@ -48,7 +48,7 @@ static MyDopamine* sharedInstance;
     
     [_dopamineBase sendInitRequest];
     
-    [self sendTest];
+    //[self sendTest];
     return self;
 }
 

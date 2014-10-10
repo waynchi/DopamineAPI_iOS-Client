@@ -30,8 +30,24 @@
 {
     if(_actions == NULL)
         _actions = [[NSMutableOrderedSet alloc] init];
+    if(_rewardFunctions == NULL)
+        _rewardFunctions = [[NSMutableSet alloc] init];
+    if(_feedbackFunctions == NULL)
+        _feedbackFunctions = [[NSMutableSet alloc] init];
+    
     
     [_actions addObject:action];
+    NSLog(@"Added Action in Base: %@", action);
+    for(NSString* reward in [action rewardFunctions])
+    {
+        [_rewardFunctions addObject:reward];
+        NSLog(@"Added Reward in Base: %@",reward);
+    }
+    for(NSString* feedback in [action feedbackFunctions])
+    {
+        [_feedbackFunctions addObject:[action feedbackFunctions]];
+
+    }
 }
 
 

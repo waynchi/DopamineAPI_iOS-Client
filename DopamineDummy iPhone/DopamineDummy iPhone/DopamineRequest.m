@@ -121,7 +121,7 @@
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSLog(@"%@", jsonData);
+    NSLog(@"Base Request: %@", jsonData);
     return jsonData;
 }
 
@@ -135,10 +135,12 @@
                            json_FEEDBACKFUNCTIONS_stringarray
                            , nil];
     NSArray *initValues = [NSArray arrayWithObjects:
-                           [dopamineBase rewardFunctions],
+                           [dopamineBase actions],
                            [dopamineBase feedbackFunctions]
                            , nil];
     
+    NSLog(@"Field Names: %@", initFieldNames);
+    NSLog(@"Init Values: %@", [dopamineBase rewardFunctions]);
     
     //NSDictionary* initDict = [NSDictionary dictionaryWithObjects:initValues forKeys:initFieldNames];
     
@@ -152,9 +154,9 @@
     
     jsonString = [[NSMutableString alloc] initWithData:base encoding:NSUTF8StringEncoding];
     
-    [jsonString appendString:[self getBuildID]];
+    //[jsonString appendString:[self getBuildID]];
     
-   // NSLog(@"%@", jsonString);
+    NSLog(@"Init Request: %@", jsonString);
     
     return jsonString;
     
@@ -190,10 +192,10 @@
     //Not sure what we want to happen for a nil string. Right now it returns the nil SHA1 which is
     //da39a3ee5e6b4b0d3255bfef95601890afd80709
     unsigned char digest[CC_SHA1_DIGEST_LENGTH];
-    NSData *stringBytes = [buildID dataUsingEncoding: NSUTF8StringEncoding]; /* or some other encoding */
+    NSData *stringBytes = [buildID dataUsingEncoding: NSUTF8StringEncoding]; // or some other encoding
     if(CC_SHA1([stringBytes bytes], [stringBytes length], digest))
     {
-        /* SHA-1 hash has been calculated and stored in 'digest'. */
+        // SHA-1 hash has been calculated and stored in 'digest'.
         NSMutableString *buffer = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH];
         
         for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++){
