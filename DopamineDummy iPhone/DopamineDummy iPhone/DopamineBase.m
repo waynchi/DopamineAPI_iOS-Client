@@ -51,6 +51,15 @@
 }
 
 
+-(void) setIdent:(NSString *)IDTYPE andUniqueID:(NSString *)uniqueID
+{
+    if(self.identity == NULL)
+    {
+        self.identity = [[NSMutableDictionary alloc] init];
+    }
+    
+    [self.identity setObject:uniqueID forKey:IDTYPE];
+}
 //Setter function
 
 -(NSString*)setBuildID
