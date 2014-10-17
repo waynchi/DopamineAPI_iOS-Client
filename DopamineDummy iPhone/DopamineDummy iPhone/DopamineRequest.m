@@ -63,7 +63,7 @@
     NSLog(@"This is %@", [self getBuildID]);
     
     // parse response
-    NSLog(response);
+    NSLog(@"This is the Response: %@", response);
     
 }
 
@@ -79,7 +79,7 @@
     }
 }
 
--(NSData*)getBaseRequest
+-(NSDictionary*)getBaseRequest
 {
     NSArray *credentialFieldNames = [NSArray arrayWithObjects:
                                      json_CLIENTOS_string,
@@ -119,11 +119,13 @@
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:credentialValues forKeys:credentialFieldNames];
     
+    NSLog(@"Base Dictionary : %@", dict);
+    
+    //Changed slightly to return the NSDictionary instead
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSLog(@"Base Request: %@", jsonData);
-    return jsonData;
+    return dict;
 }
 
 -(NSString*)getInitRequest
@@ -152,6 +154,7 @@
     
     NSData* feedbackData = [NSJSONSerialization dataWithJSONObject:finalFeedbackFunctions options:NSJSONWritingPrettyPrinted error:&error];
     NSString *feedbackString = [[NSString alloc] initWithData:feedbackData encoding:NSUTF8StringEncoding];
+    NSLog(@"Feedback String : %@", feedbackString);
     
     //creating the rewardfunctions
     NSMutableDictionary* rewardFunctions = [[NSMutableDictionary alloc] init];
@@ -179,18 +182,25 @@
     NSLog(@"Field Names: %@", initFieldNames);
     NSLog(@"Init Values: %@", initValues);
     
+    
+    //Creating all the NSDatas from dictionaries
     NSDictionary* initDict = [NSDictionary dictionaryWithObjects:initValues forKeys:initFieldNames];
+    
+    NSMutableDictionary* baseDict = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseRequest]];
+    NSArray* rewardArray = [[NSArray alloc] initWithArray:[[dopamineBase rewardFunctions] allObjects]];
+    NSArray* feedbackArray = [[NSArray alloc] initWithArray:[[dopamineBase feedbackFunctions] allObjects]];
 
-    NSMutableData* base = [[NSMutableData alloc] initWithData:([self getBaseRequest])];
+    [baseDict setObject:rewardArray   forKey:json_REWARDFUNCTIONS_stringarray];
+    [baseDict setObject:feedbackArray forKey:json_FEEDBACKFUNCTIONS_stringarray];
+
+   // NSMutableData* base = [[NSMutableData alloc] initWithData:([self getBaseRequest])];
     
+    NSData* initRequest = [NSJSONSerialization dataWithJSONObject:baseDict options:NSJSONWritingPrettyPrinted error:&error];
     
-    NSData* initRequest = [NSJSONSerialization dataWithJSONObject:initDict options:NSJSONWritingPrettyPrinted error:&error];
+    //[base appendData:initRequest];
     
-    [base appendData:initRequest];
+    jsonString = [[NSMutableString alloc] initWithData:initRequest encoding:NSUTF8StringEncoding];
     
-    jsonString = [[NSMutableString alloc] initWithData:base encoding:NSUTF8StringEncoding];
-    
-    //[jsonString appendString:[self getBuildID]];
     
     NSLog(@"Init Request: %@", jsonString);
     
