@@ -27,6 +27,8 @@
 @property (nonatomic, strong) NSString* clientOS;
 @property (nonatomic, strong) NSString* clientOSversion;
 @property (nonatomic, strong) NSString* clientAPIversion;
+@property (nonatomic, readonly) NSUUID *advertisingIdentifier;
+@property (nonatomic, strong) NSString *adid;
 
 -(id)initWithAppID:(NSString*)appID andVersionID:(NSString*)versionID andKey:(NSString*)key andToken:(NSString*)token;
 //+(NSArray*) reinforce:(DopamineAction*) action;
@@ -35,5 +37,6 @@
 -(void) track:(NSString*) eventName;
 -(void)addAction:(DopamineAction*) action;
 -(void)sendInitRequest;
+-(void)setUUID;
 
 @end

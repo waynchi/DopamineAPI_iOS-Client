@@ -7,6 +7,7 @@
 //
 
 #import "DopamineBase.h"
+#import <AdSupport/ASIdentifierManager.h>
 #include <CommonCrypto/CommonDigest.h>
 
 @implementation DopamineBase
@@ -16,6 +17,8 @@
     self = [super init];
     _clientOS = @"iOS";
     [self setBuildID];
+    [self setUUID];
+    [self setIdent:@"DEVICE_ID" andUniqueID:_adid];
     _clientOSversion = [[UIDevice currentDevice] systemVersion];
     _clientAPIversion = @"1.2.0";
     _appID = appID;
@@ -60,6 +63,19 @@
     
     [self.identity setObject:uniqueID forKey:IDTYPE];
 }
+
+-(void)setUUID
+{
+    if(_advertisingIdentifier == nil)
+    {
+        _advertisingIdentifier = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+    }
+    if(_adid == nil)
+    {
+        _adid = [_advertisingIdentifier UUIDString];
+    }
+}
+
 //Setter function
 
 -(NSString*)setBuildID

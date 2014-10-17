@@ -8,7 +8,6 @@
 
 #import "DopamineRequest.h"
 #import "DopamineBase.h"
-#import <AdSupport/ASIdentifierManager.h>
 #include <CommonCrypto/CommonDigest.h>
 
 @implementation DopamineRequest
@@ -19,7 +18,6 @@
     self = [super init];
     dopamineBase = base;
     uriBuilder = [[URIBuilder alloc] init:[dopamineBase appID]];
-    [self setUUID];
     return self;
 }
 
@@ -67,18 +65,6 @@
     
 }
 
--(void)setUUID
-{
-    if(_advertisingIdentifier == nil)
-    {
-        _advertisingIdentifier = [[ASIdentifierManager sharedManager] advertisingIdentifier];
-    }
-    if(_adid == nil)
-    {
-        _adid = [_advertisingIdentifier UUIDString];
-    }
-}
-
 -(NSDictionary*)getBaseRequest
 {
     NSArray *credentialFieldNames = [NSArray arrayWithObjects:
@@ -101,6 +87,10 @@
     _localTime =[[NSNumber alloc] initWithLong:localTime];
     
     
+    //Turning Identity into a NSDictionary from a NSMutableDictionary
+    
+    NSDictionary* identity = [[NSDictionary alloc] initWithDictionary:[dopamineBase identity]];
+    NSArray* identityArray = [[NSArray alloc] initWithObjects:identity, nil];
     
     
     NSArray *credentialValues = [NSArray arrayWithObjects:
@@ -110,8 +100,7 @@
                                  [dopamineBase key],
                                  [dopamineBase token],
                                  [dopamineBase versionID],
-                                 //[dopamineBase identity],
-                                 @"1ECE054F8116773594F7A2F413D7474C",
+                                 identityArray,
                                  [dopamineBase build],
                                  _utcTime,
                                  _localTime,
@@ -133,7 +122,7 @@
     //GetBase <- Append to Base Init Specific fields (dicitonary)
     NSMutableString *jsonString;
     NSError* error;
-    
+   /*
     NSArray *initFieldNames = [NSArray arrayWithObjects:
                            json_REWARDFUNCTIONS_stringarray,
                            json_FEEDBACKFUNCTIONS_stringarray
@@ -173,29 +162,31 @@
     NSString *rewardString = [[NSString alloc] initWithData:rewardData encoding:NSUTF8StringEncoding];
     
     NSArray *initValues = [NSArray arrayWithObjects:
-                           //[dopamineBase actions],
-                           //[dopamineBase feedbackFunctions]
-                           rewardString,
-                           feedbackString
+                           [dopamineBase actions],
+                           [dopamineBase feedbackFunctions]
+                          // rewardString,
+                           //feedbackString
                            , nil];
     
     NSLog(@"Field Names: %@", initFieldNames);
     NSLog(@"Init Values: %@", initValues);
-    
+    */
     
     //Creating all the NSDatas from dictionaries
-    NSDictionary* initDict = [NSDictionary dictionaryWithObjects:initValues forKeys:initFieldNames];
+    //NSDictionary* initDict = [NSDictionary dictionaryWithObjects:initValues forKeys:initFieldNames];
     
-    NSMutableDictionary* baseDict = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseRequest]];
+    NSMutableDictionary* initDict = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseRequest]];
     NSArray* rewardArray = [[NSArray alloc] initWithArray:[[dopamineBase rewardFunctions] allObjects]];
     NSArray* feedbackArray = [[NSArray alloc] initWithArray:[[dopamineBase feedbackFunctions] allObjects]];
 
-    [baseDict setObject:rewardArray   forKey:json_REWARDFUNCTIONS_stringarray];
-    [baseDict setObject:feedbackArray forKey:json_FEEDBACKFUNCTIONS_stringarray];
+    [initDict setObject:rewardArray   forKey:json_REWARDFUNCTIONS_stringarray];
+    [initDict setObject:feedbackArray forKey:json_FEEDBACKFUNCTIONS_stringarray];
+    
+    //for(DopamineAction* action in )
 
    // NSMutableData* base = [[NSMutableData alloc] initWithData:([self getBaseRequest])];
     
-    NSData* initRequest = [NSJSONSerialization dataWithJSONObject:baseDict options:NSJSONWritingPrettyPrinted error:&error];
+    NSData* initRequest = [NSJSONSerialization dataWithJSONObject:initDict options:NSJSONWritingPrettyPrinted error:&error];
     
     //[base appendData:initRequest];
     
