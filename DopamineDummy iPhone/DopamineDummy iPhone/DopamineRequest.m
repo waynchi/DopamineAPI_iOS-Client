@@ -182,8 +182,41 @@
     [initDict setObject:rewardArray   forKey:json_REWARDFUNCTIONS_stringarray];
     [initDict setObject:feedbackArray forKey:json_FEEDBACKFUNCTIONS_stringarray];
     
-    //for(DopamineAction* action in )
+    //Action Pairing
+    NSMutableArray* actionPairingArray = [[NSMutableArray alloc] init];
+    
+    for(DopamineAction* action in [dopamineBase actions])
+    {
+        NSMutableDictionary* actionPairingDict = [[NSMutableDictionary alloc] init];
+        [actionPairingDict setObject:[action actionName] forKey:json_ACTIONNAME_string];
+        NSMutableArray* reinforcersArray = [[NSMutableArray alloc] init];
+        
+        for(NSString* feedbackName in [action feedbackFunctions])
+        {
+            NSMutableDictionary* feedbackDict = [[NSMutableDictionary alloc] init];
+            [feedbackDict setObject:feedbackName forKey:json_PAIREDFUNCTIONNAME_string];
+            [feedbackDict setObject:@"Feedback" forKey:json_PAIREDFUNCTIONTYPE_string];
+            [feedbackDict setObject:[[NSArray alloc] init] forKey:json_PAIREDFUNCTIONOBJECTIVES_stringarray];
+            [feedbackDict setObject:[[NSArray alloc] init] forKey:json_PAIREDFUNCTIONCONSTRAINTS_stringarray];
+            [reinforcersArray addObject: feedbackDict];
+        }
+        for(NSString* rewardName in [action rewardFunctions])
+        {
+            NSMutableDictionary* rewardDict = [[NSMutableDictionary alloc] init];
+            [rewardDict setObject:rewardName forKey:json_PAIREDFUNCTIONNAME_string];
+            [rewardDict setObject:@"Reward" forKey:json_PAIREDFUNCTIONTYPE_string];
+            [rewardDict setObject:[[NSArray alloc] init] forKey:json_PAIREDFUNCTIONOBJECTIVES_stringarray];
+            [rewardDict setObject:[[NSArray alloc] init] forKey:json_PAIREDFUNCTIONCONSTRAINTS_stringarray];
+            [reinforcersArray addObject: rewardDict];
+        }
+        
+        [actionPairingDict setObject:reinforcersArray forKey:json_PAIREDFUNCTION_jsonarray];
+        
+        [actionPairingArray addObject:actionPairingDict];
+    }
+    
 
+    [initDict setObject:actionPairingArray forKey:json_ACTIONPAIRINGS_jsonarray];
    // NSMutableData* base = [[NSMutableData alloc] initWithData:([self getBaseRequest])];
     
     NSData* initRequest = [NSJSONSerialization dataWithJSONObject:initDict options:NSJSONWritingPrettyPrinted error:&error];
