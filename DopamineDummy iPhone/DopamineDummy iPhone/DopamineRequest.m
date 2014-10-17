@@ -130,28 +130,63 @@
 {
     //GetBase <- Append to Base Init Specific fields (dicitonary)
     NSMutableString *jsonString;
+    NSError* error;
     
     NSArray *initFieldNames = [NSArray arrayWithObjects:
                            json_REWARDFUNCTIONS_stringarray,
                            json_FEEDBACKFUNCTIONS_stringarray
                            , nil];
+    //creating the feedbackFunctions
+    NSMutableDictionary* feedbackFunctions = [[NSMutableDictionary alloc] init];
+    int count = 1;
+    NSString *tempFeedbackString = [NSString stringWithFormat:@"feedBackFunction%d", count];
+    for(NSString* feedback in [dopamineBase feedbackFunctions])
+    {
+        [feedbackFunctions setObject:feedback forKey:tempFeedbackString];
+        NSLog(@"Adding %@ and %@", feedback, tempFeedbackString);
+        count++;
+    }
+    
+    NSDictionary* finalFeedbackFunctions = [[NSDictionary alloc] initWithDictionary:feedbackFunctions];
+     NSLog(@"Feedback Functions: %@", finalFeedbackFunctions);
+    
+    NSData* feedbackData = [NSJSONSerialization dataWithJSONObject:finalFeedbackFunctions options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *feedbackString = [[NSString alloc] initWithData:feedbackData encoding:NSUTF8StringEncoding];
+    
+    //creating the rewardfunctions
+    NSMutableDictionary* rewardFunctions = [[NSMutableDictionary alloc] init];
+    count = 1;
+    NSString *tempRewardString = [NSString stringWithFormat:@"rewardFunction%d", count];
+    for(NSString* reward in [dopamineBase rewardFunctions])
+    {
+        [rewardFunctions setObject:reward forKey:tempRewardString];
+        count++;
+    }
+   
+    
+    NSDictionary* finalRewardFunctions = [[NSDictionary alloc] initWithDictionary:rewardFunctions];
+    
+    NSData* rewardData = [NSJSONSerialization dataWithJSONObject:finalRewardFunctions options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *rewardString = [[NSString alloc] initWithData:rewardData encoding:NSUTF8StringEncoding];
+    
     NSArray *initValues = [NSArray arrayWithObjects:
-                           [dopamineBase actions],
-                           [dopamineBase feedbackFunctions]
+                           //[dopamineBase actions],
+                           //[dopamineBase feedbackFunctions]
+                           rewardString,
+                           feedbackString
                            , nil];
     
     NSLog(@"Field Names: %@", initFieldNames);
-    NSLog(@"Init Values: %@", [dopamineBase rewardFunctions]);
+    NSLog(@"Init Values: %@", initValues);
     
-    //NSDictionary* initDict = [NSDictionary dictionaryWithObjects:initValues forKeys:initFieldNames];
-    
-    //Completely wrong
+    NSDictionary* initDict = [NSDictionary dictionaryWithObjects:initValues forKeys:initFieldNames];
+
     NSMutableData* base = [[NSMutableData alloc] initWithData:([self getBaseRequest])];
     
-    NSError* error;
-    //NSData* initRequest = [NSJSONSerialization dataWithJSONObject:initDict options:NSJSONWritingPrettyPrinted error:&error];
     
-    //[base appendData:initRequest];
+    NSData* initRequest = [NSJSONSerialization dataWithJSONObject:initDict options:NSJSONWritingPrettyPrinted error:&error];
+    
+    [base appendData:initRequest];
     
     jsonString = [[NSMutableString alloc] initWithData:base encoding:NSUTF8StringEncoding];
     

@@ -45,7 +45,7 @@
     }
     for(NSString* feedback in [action feedbackFunctions])
     {
-        [_feedbackFunctions addObject:[action feedbackFunctions]];
+        [_feedbackFunctions addObject:feedback];
 
     }
 }
