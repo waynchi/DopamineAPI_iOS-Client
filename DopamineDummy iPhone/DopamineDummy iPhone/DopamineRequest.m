@@ -21,6 +21,43 @@
     return self;
 }
 
+#pragma mark NSURLConnection Delegate Methods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    // A response has been received, this is where we initialize the instance var you created
+    // so that we can append data to it in the didReceiveData method
+    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // also serves to clear it
+    NSLog(@"Received a Response");
+    _responseData = [[NSMutableData alloc] init];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // Append the new data to the instance variable you declared
+    NSLog(@"Received Data");
+    [_responseData appendData:data];
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    // The request is complete and data has been received
+    // You can parse the stuff in your instance variable now
+    NSString* dataString = [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding];
+    NSLog(@"Connection Finished Loading With a Response: %@", dataString);
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    // The request has failed for some reason!
+    // Check the error var
+    NSLog(@"There was an error");
+}
+
 -(void)sendRequest:(RequestType*) requestType{
     NSURL* url = [NSURL alloc];
     
@@ -37,6 +74,8 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
+    
+    
     NSString *jsonString;
     if(requestType == INIT)
         jsonString = [self getInitRequest];
@@ -44,14 +83,20 @@
         url = [uriBuilder getURI:@"/track/"];
     else if (requestType == REWARD)
         url = [uriBuilder getURI:@"/reinforce/"];
-   
-    
     [request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
     
     [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
     
+    // Create url connection and fire request
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+   
+    
+    /*[request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
+    
+    [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+    
     //NSURLConnection *connection = [[NSURLConnection alloc] init];
-   // [connection initWithRequest:request delegate:self startImmediately:YES];
+    //[connection initWithRequest:request delegate:self startImmediately:YES];
     NSData* responseData;
     responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:NULL error:NULL];
     
@@ -61,7 +106,7 @@
     NSLog(@"This is %@", [self getBuildID]);
     
     // parse response
-    NSLog(@"This is the Response: %@", response);
+    NSLog(@"This is the Response: %@", response);*/
     
 }
 
@@ -105,11 +150,13 @@
     NSArray* identityArray = [[NSArray alloc] initWithObjects:mutableIdentityArray, nil];
     
     
+    NSNumber *OSversion = [[NSNumber alloc] initWithDouble:[[dopamineBase clientOSversion] doubleValue]];
+    NSLog(@"double vale %@", OSversion);
     
     
     NSArray *credentialValues = [NSArray arrayWithObjects:
                                  [dopamineBase clientOS],
-                                 [dopamineBase clientOSversion],
+                                 OSversion, //Do you want this to be a number or a string.
                                  [dopamineBase clientAPIversion],
                                  [dopamineBase key],
                                  [dopamineBase token],

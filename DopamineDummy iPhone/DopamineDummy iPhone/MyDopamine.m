@@ -39,14 +39,14 @@ static MyDopamine* sharedInstance;
     [_clickReinforcementButton pairReward:_REWARDFUNCTION1];
     
     _dopamineBase = [[DopamineBase alloc] initWithAppID:@"53bf3dfbf572f3b63ee628de"
-                                           andVersionID:@"DopamineDummy5"
+                                           andVersionID:@"WayneDopamineDummy"
                                                  andKey:@"db07887eec605bff3a9ae5ae5374152ced642ed5"
                                                andToken:@"493245694786310253bf3dfbf572f3b63ee628de"
                      ];
     
     [_dopamineBase addAction:_clickReinforcementButton];
     
-    [_dopamineBase sendInitRequest];
+    //[_dopamineBase sendInitRequest];
     
     [self sendTest];
     return self;

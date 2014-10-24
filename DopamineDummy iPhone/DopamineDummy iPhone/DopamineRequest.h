@@ -11,12 +11,16 @@
 #import "DopamineConstants.h"
 @class DopamineBase;
 
-@interface DopamineRequest : NSObject
+@interface DopamineRequest : NSObject<NSURLConnectionDelegate>
+{
+    NSMutableData *_responseData;
+}
 
 @property (nonatomic, strong) DopamineBase *dopamineBase;
 @property (nonatomic, strong) URIBuilder *uriBuilder;
 @property (nonatomic, strong) NSNumber* utcTime;
 @property (nonatomic, strong) NSNumber* localTime;
+
 
 typedef enum{
     INIT=0,
