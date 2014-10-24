@@ -50,8 +50,8 @@
     
     [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
     
-//    NSURLConnection *connection = [[NSURLConnection alloc] init];
-//    [connection initWithRequest:request delegate:self startImmediately:YES];
+    //NSURLConnection *connection = [[NSURLConnection alloc] init];
+   // [connection initWithRequest:request delegate:self startImmediately:YES];
     NSData* responseData;
     responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:NULL error:NULL];
     
@@ -90,7 +90,21 @@
     //Turning Identity into a NSDictionary from a NSMutableDictionary
     
     NSDictionary* identity = [[NSDictionary alloc] initWithDictionary:[dopamineBase identity]];
-    NSArray* identityArray = [[NSArray alloc] initWithObjects:identity, nil];
+    
+    NSArray* keyArray = [identity allKeys];
+    NSArray* valueArray = [identity allValues];
+    NSMutableArray* mutableIdentityArray = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [keyArray count]; i++)
+    {
+        NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
+        [tempDict setObject:[valueArray objectAtIndex:i] forKey:[keyArray objectAtIndex:i]];
+        [mutableIdentityArray addObject:tempDict];
+    }
+    
+    NSArray* identityArray = [[NSArray alloc] initWithObjects:mutableIdentityArray, nil];
+    
+    
     
     
     NSArray *credentialValues = [NSArray arrayWithObjects:
