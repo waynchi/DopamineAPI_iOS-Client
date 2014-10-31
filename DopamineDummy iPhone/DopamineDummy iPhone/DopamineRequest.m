@@ -80,9 +80,9 @@
     if(requestType == INIT)
         jsonString = [self getInitRequest];
     else if (requestType == TRACK)
-        url = [uriBuilder getURI:@"/track/"];
+        url = [uriBuilder getURI:@"/track/"]; //change this
     else if (requestType == REWARD)
-        url = [uriBuilder getURI:@"/reinforce/"];
+        url = [uriBuilder getURI:@"/reinforce/"]; //change this
     [request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
     
     [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
@@ -147,7 +147,7 @@
         [mutableIdentityArray addObject:tempDict];
     }
     
-    NSArray* identityArray = [[NSArray alloc] initWithObjects:mutableIdentityArray, nil];
+   // NSArray* identityArray = [[NSArray alloc] initWithObjects:mutableIdentityArray, nil];
     
     
     NSNumber *OSversion = [[NSNumber alloc] initWithDouble:[[dopamineBase clientOSversion] doubleValue]];
@@ -161,7 +161,7 @@
                                  [dopamineBase key],
                                  [dopamineBase token],
                                  [dopamineBase versionID],
-                                 identityArray,
+                                 mutableIdentityArray,
                                  [dopamineBase build],
                                  _utcTime,
                                  _localTime,
@@ -183,58 +183,6 @@
     //GetBase <- Append to Base Init Specific fields (dicitonary)
     NSMutableString *jsonString;
     NSError* error;
-   /*
-    NSArray *initFieldNames = [NSArray arrayWithObjects:
-                           json_REWARDFUNCTIONS_stringarray,
-                           json_FEEDBACKFUNCTIONS_stringarray
-                           , nil];
-    //creating the feedbackFunctions
-    NSMutableDictionary* feedbackFunctions = [[NSMutableDictionary alloc] init];
-    int count = 1;
-    NSString *tempFeedbackString = [NSString stringWithFormat:@"feedBackFunction%d", count];
-    for(NSString* feedback in [dopamineBase feedbackFunctions])
-    {
-        [feedbackFunctions setObject:feedback forKey:tempFeedbackString];
-        NSLog(@"Adding %@ and %@", feedback, tempFeedbackString);
-        count++;
-    }
-    
-    NSDictionary* finalFeedbackFunctions = [[NSDictionary alloc] initWithDictionary:feedbackFunctions];
-     NSLog(@"Feedback Functions: %@", finalFeedbackFunctions);
-    
-    NSData* feedbackData = [NSJSONSerialization dataWithJSONObject:finalFeedbackFunctions options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *feedbackString = [[NSString alloc] initWithData:feedbackData encoding:NSUTF8StringEncoding];
-    NSLog(@"Feedback String : %@", feedbackString);
-    
-    //creating the rewardfunctions
-    NSMutableDictionary* rewardFunctions = [[NSMutableDictionary alloc] init];
-    count = 1;
-    NSString *tempRewardString = [NSString stringWithFormat:@"rewardFunction%d", count];
-    for(NSString* reward in [dopamineBase rewardFunctions])
-    {
-        [rewardFunctions setObject:reward forKey:tempRewardString];
-        count++;
-    }
-   
-    
-    NSDictionary* finalRewardFunctions = [[NSDictionary alloc] initWithDictionary:rewardFunctions];
-    
-    NSData* rewardData = [NSJSONSerialization dataWithJSONObject:finalRewardFunctions options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *rewardString = [[NSString alloc] initWithData:rewardData encoding:NSUTF8StringEncoding];
-    
-    NSArray *initValues = [NSArray arrayWithObjects:
-                           [dopamineBase actions],
-                           [dopamineBase feedbackFunctions]
-                          // rewardString,
-                           //feedbackString
-                           , nil];
-    
-    NSLog(@"Field Names: %@", initFieldNames);
-    NSLog(@"Init Values: %@", initValues);
-    */
-    
-    //Creating all the NSDatas from dictionaries
-    //NSDictionary* initDict = [NSDictionary dictionaryWithObjects:initValues forKeys:initFieldNames];
     
     NSMutableDictionary* initDict = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseRequest]];
     NSArray* rewardArray = [[NSArray alloc] initWithArray:[[dopamineBase rewardFunctions] allObjects]];
@@ -292,6 +240,51 @@
     return jsonString;
     
 }
+
+-(NSString*)getTrackRequest: (NSString*) eventName
+{
+    NSString* jsonString;
+    NSError* error;
+    
+    
+    NSArray* keyArray = [[dopamineBase metaData] allKeys];
+    NSArray* valueArray = [[dopamineBase metaData] allValues];
+    NSMutableArray* mutableMetaDataArray = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [keyArray count]; i++)
+    {
+        NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
+        [tempDict setObject:[valueArray objectAtIndex:i] forKey:[keyArray objectAtIndex:i]];
+        [mutableMetaDataArray addObject:tempDict];
+    }
+    
+    NSArray* pKeyArray = [[dopamineBase persistentMetaData] allKeys];
+    NSArray* pValueArray = [[dopamineBase persistentMetaData] allValues];
+    NSMutableArray* mutablePMetaDataArray = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [pKeyArray count]; i++)
+    {
+        NSMutableDictionary* PTempDict = [[NSMutableDictionary alloc] init];
+        [PTempDict setObject:[pValueArray objectAtIndex:i] forKey:[pKeyArray objectAtIndex:i]];
+        [mutablePMetaDataArray addObject:PTempDict];
+    }
+    
+    [mutableMetaDataArray addObject:mutablePMetaDataArray];
+    
+    
+    //Creating MetaData JSONString
+    NSData* metaDataData = [NSJSONSerialization dataWithJSONObject:mutableMetaDataArray options:NSJSONWritingPrettyPrinted error:&error];
+    NSString* metaDataString = [[NSString alloc] initWithData:metaDataData encoding:NSUTF8StringEncoding];
+    
+    //Creating trackDict
+    NSMutableDictionary* trackDict = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseRequest]];
+    [trackDict setObject:eventName forKey:json_EVENTNAME_string];
+    [trackDict setObject:metaDataString forKey:json_METADATA_keyvaluearray];
+    
+    return jsonString;
+}
+
+
 
 -(NSString*)getBuildID
 {
