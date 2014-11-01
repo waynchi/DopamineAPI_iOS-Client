@@ -38,5 +38,8 @@
 -(void)addAction:(DopamineAction*) action;
 -(void)sendInitRequest;
 -(void)setUUID;
-
+-(void)addMetaData:(NSString*) key andValue:(NSObject*) value;
+-(void)clearMetaData:(NSString*) key;
+-(void)addPersistentMetaData:(NSString*) key andValue:(NSObject*) value;
+-(void)clearPersistentMetaData:(NSString*) key;
 @end

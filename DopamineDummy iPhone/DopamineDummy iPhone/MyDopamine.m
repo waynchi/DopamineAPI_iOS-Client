@@ -48,6 +48,9 @@ static MyDopamine* sharedInstance;
     
     //[_dopamineBase sendInitRequest];
     
+    [_dopamineBase addPersistentMetaData:@"Day" andValue:@"Saturday"];
+    [_dopamineBase addMetaData:@"firstMetaData" andValue:@"15"];
+    
     [self sendTest];
     return self;
 }
@@ -55,7 +58,7 @@ static MyDopamine* sharedInstance;
 -(void) sendTest
 {
     DopamineRequest* dopamineRequest = [[DopamineRequest alloc] init:_dopamineBase];
-    RequestType* requestType = INIT;
+    RequestType* requestType = TRACK;
     //        NSAssert(requestType!=NULL, @"INIT not working");
     [dopamineRequest sendRequest:requestType];
 }

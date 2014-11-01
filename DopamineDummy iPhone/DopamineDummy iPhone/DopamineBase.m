@@ -152,6 +152,41 @@
     return nil;
 }
 
+//////////////////////////////////////
+//
+// Setter functions
+//
+//////////////////////////////////////
+
+-(void)addMetaData:(NSString*) key andValue:(NSObject*) value
+{
+    if (_metaData == NULL) {
+        _metaData = [[NSMutableDictionary alloc] init];
+    }
+    [self clearMetaData:key];
+    [_metaData setObject:value forKey:key];
+    
+    
+}
+-(void)clearMetaData:(NSString*) key
+{
+    if (_metaData == NULL) return;
+    [_metaData removeObjectForKey:key];
+    
+}
+-(void)addPersistentMetaData:(NSString*) key andValue:(NSObject*) value
+{
+    if (_persistentMetaData == NULL) {
+        _persistentMetaData = [[NSMutableDictionary alloc] init];
+    }
+    [self clearPersistentMetaData:key];
+    [_persistentMetaData setObject:value forKey:key];
+}
+-(void)clearPersistentMetaData:(NSString*) key
+{
+    if (_persistentMetaData == NULL) return;
+    [_persistentMetaData removeObjectForKey:key];
+}
 
 
 @end

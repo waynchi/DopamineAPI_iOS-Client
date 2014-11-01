@@ -77,10 +77,11 @@
     
     
     NSString *jsonString;
+    NSString *requestString = @"track button pushed";
     if(requestType == INIT)
         jsonString = [self getInitRequest];
     else if (requestType == TRACK)
-        url = [uriBuilder getURI:@"/track/"]; //change this
+        jsonString = [self getTrackRequest:requestString]; //I have a default eventName for now.
     else if (requestType == REWARD)
         url = [uriBuilder getURI:@"/reinforce/"]; //change this
     [request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
@@ -274,12 +275,17 @@
     
     //Creating MetaData JSONString
     NSData* metaDataData = [NSJSONSerialization dataWithJSONObject:mutableMetaDataArray options:NSJSONWritingPrettyPrinted error:&error];
-    NSString* metaDataString = [[NSString alloc] initWithData:metaDataData encoding:NSUTF8StringEncoding];
     
     //Creating trackDict
     NSMutableDictionary* trackDict = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseRequest]];
     [trackDict setObject:eventName forKey:json_EVENTNAME_string];
-    [trackDict setObject:metaDataString forKey:json_METADATA_keyvaluearray];
+    [trackDict setObject:mutableMetaDataArray forKey:json_METADATA_keyvaluearray];
+    
+    NSData* trackRequest = [NSJSONSerialization dataWithJSONObject:trackDict options:NSJSONWritingPrettyPrinted error:&error];
+    
+    jsonString = [[NSMutableString alloc] initWithData:trackRequest encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"This is the Track Request: %@", jsonString);
     
     return jsonString;
 }

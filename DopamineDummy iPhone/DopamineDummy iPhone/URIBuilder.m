@@ -24,6 +24,7 @@
     //appends the string of the request type : Init Track Reinforce
     [uri appendString:requestType];
     url = [[NSURL alloc] initWithString:uri];
+    NSLog(@"This is the URL: %@" , url);
     return url;
 }
 
