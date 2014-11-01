@@ -285,6 +285,11 @@
     
     jsonString = [[NSMutableString alloc] initWithData:trackRequest encoding:NSUTF8StringEncoding];
     
+    if([dopamineBase metaData] != NULL)
+    {
+        [[dopamineBase metaData] removeAllObjects];
+    }
+    
     NSLog(@"This is the Track Request: %@", jsonString);
     
     return jsonString;
