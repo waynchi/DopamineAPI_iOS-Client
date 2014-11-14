@@ -46,22 +46,25 @@ static MyDopamine* sharedInstance;
     
     [_dopamineBase addAction:_clickReinforcementButton];
     
-    //[_dopamineBase sendInitRequest];
-    
+    //Modifiable values. These are just examples
     [_dopamineBase addPersistentMetaData:@"Day" andValue:@"Saturday"];
     [_dopamineBase addMetaData:@"firstMetaData" andValue:@"15"];
-    
-    //[self sendTest];
-    [_dopamineBase track:@"Tracking Call"];
+
+    //Sending Init Request to the Server
+    [_dopamineBase sendInitRequest];
     return self;
 }
-//
-//-(void) sendTest
-//{
-//    DopamineRequest* dopamineRequest = [[DopamineRequest alloc] init:_dopamineBase];
-//    RequestType* requestType = TRACK;
-//    //        NSAssert(requestType!=NULL, @"INIT not working");
-//    [dopamineRequest sendRequest:requestType];
-//}
+
++(void)track:(NSString *)eventName
+{
+    [[sharedInstance dopamineBase] track:eventName];
+}
+
++(NSString*)reinforce:(NSString *)eventName
+{
+    return [[sharedInstance dopamineBase] reinforce:eventName];
+}
+
+
 
 @end

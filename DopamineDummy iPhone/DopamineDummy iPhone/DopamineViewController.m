@@ -28,6 +28,10 @@
         [MyDopamine initDopamine];
         NSLog(@"End test Dopamine initilization");
         
+        // [MyDopamine track:@"Tracking Request"];
+        NSLog(@"This is the reinfocement: %@", [MyDopamine reinforce:@"reinforcedBehavior"]);
+        
+        
         
     }
     return self;

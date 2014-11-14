@@ -32,14 +32,12 @@
 @property (nonatomic, strong) DopamineRequest *dopamineRequest;
 
 -(id)initWithAppID:(NSString*)appID andVersionID:(NSString*)versionID andKey:(NSString*)key andToken:(NSString*)token;
-//+(NSArray*) reinforce:(DopamineAction*) action;
 -(NSString*) setBuildID;
 -(void) setIdent:(NSString*) IDTYPE andUniqueID:(NSString*)uniqueID;
 -(void)addAction:(DopamineAction*) action;
 -(void)sendInitRequest;
 -(void) track:(NSString*) eventName;
--(void)reinforce:(NSString*)eventName;
--(void)processResponse:(NSString*)response;
+-(NSString*)reinforce:(NSString*)eventName;
 -(void)setUUID;
 -(void)addMetaData:(NSString*) key andValue:(NSObject*) value;
 -(void)clearMetaData:(NSString*) key;

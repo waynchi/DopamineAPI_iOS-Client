@@ -12,8 +12,8 @@
 
 @interface MyDopamine : NSObject
 
-@property (nonatomic, strong) DopamineBase* dopamineBase;
 
+@property (nonatomic,strong) DopamineBase* dopamineBase;
 // Declare Actions with their ActionNames
 @property (nonatomic, strong) DopamineAction* clickReinforcementButton;
 
@@ -27,5 +27,7 @@
 @property (nonatomic, strong) NSString* REWARDFUNCTION2;
 
 +(MyDopamine*)initDopamine;
++(void)track:(NSString*) eventName;
++(NSString*)reinforce:(NSString*) eventName;
 
 @end

@@ -131,38 +131,29 @@
 
 -(void) sendInitRequest
 {
-    if(_dopamineRequest == NULL)
+    if(_dopamineRequest == nil)
     {
         _dopamineRequest = [[DopamineRequest alloc] init:self];
     }
     RequestType* requestType = INIT;
-    //        NSAssert(requestType!=NULL, @"INIT not working");
     [_dopamineRequest sendRequest:requestType andEventName:@"Init Request"];
 }
 
 -(void) track:(NSString *)eventName
 {
-    if(_dopamineRequest == NULL)
+    if(_dopamineRequest == nil)
     {
         _dopamineRequest = [[DopamineRequest alloc] init:self];
     }
-    RequestType* requestType = TRACK;
-    //        NSAssert(requestType!=NULL, @"INIT not working");
-    [_dopamineRequest sendRequest:requestType andEventName:eventName];
+    [_dopamineRequest sendRequest:TRACK andEventName:eventName];
 }
--(void) reinforce:(NSString *)eventName:(NSString *)eventName
+-(NSString*) reinforce:(NSString *)eventName
 {
-    if(_dopamineRequest == NULL)
+    if(_dopamineRequest == nil)
     {
         _dopamineRequest = [[DopamineRequest alloc] init:self];
     }
-    RequestType* requestType = REWARD;
-    //        NSAssert(requestType!=NULL, @"INIT not working");
-    [_dopamineRequest sendRequest:requestType andEventName:eventName];
-}
-
--(void) processResponse:(NSString *)response
-{
+    return [_dopamineRequest sendRequest:REWARD andEventName:eventName];
 }
 
 //+(NSJSONSerialization*) getBaseRequest

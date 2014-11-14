@@ -23,7 +23,7 @@
 
 #pragma mark NSURLConnection Delegate Methods
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+/*- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     // A response has been received, this is where we initialize the instance var you created
     // so that we can append data to it in the didReceiveData method
     // Furthermore, this method is called each time there is a redirect so reinitializing it
@@ -56,9 +56,9 @@
     // The request has failed for some reason!
     // Check the error var
     NSLog(@"There was an error");
-}
+}*/
 
--(void)sendRequest:(RequestType*) requestType andEventName:(NSString *)eventName{
+-(NSString*)sendRequest:(RequestType*) requestType andEventName:(NSString *)eventName{
     NSURL* url = [NSURL alloc];
     
     if(requestType == INIT)
@@ -81,15 +81,40 @@
     if(requestType == INIT)
         jsonString = [self getInitRequest];
     else if (requestType == TRACK)
-        jsonString = [self getTrackRequest:requestString]; //I have a default eventName for now.
+        jsonString = [self getTrackRequest:requestString];
     else if (requestType == REWARD)
-        jsonString = [self getReinforceRequest:requestString]; //change this
+        jsonString = [self getReinforceRequest:requestString];
     [request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
     
     [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
     
     // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+  //  NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    //NSURLRequest * urlRequest = [NSURLRequest re];
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    NSData * data = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    
+    if (error == nil)
+    {
+        if(requestType == REWARD)
+        {
+            NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:kNilOptions
+                                                                  error:&error];
+       
+            NSString* dataString = [[NSString alloc] initWithString: [dataDict objectForKey:@"reinforcementFunction"]];
+            NSLog(@"Response is %@", dataString);
+            return dataString;
+        }
+        return @"NULL";
+    }
+    
+    NSLog(@"There was a connection error");
+    return @"Failure";
    
     
     /*[request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
