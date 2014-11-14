@@ -29,6 +29,6 @@ typedef enum{
 } RequestType;
 
 -(id)init:(DopamineBase*) base;
--(void)sendRequest:(RequestType*) requestType;
+-(void)sendRequest:(RequestType*) requestType andEventName:(NSString*) eventName;
 
 @end

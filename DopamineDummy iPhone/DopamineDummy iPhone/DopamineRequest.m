@@ -49,7 +49,7 @@
     // You can parse the stuff in your instance variable now
     NSString* dataString = [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding];
     NSLog(@"Connection Finished Loading With a Response: %@", dataString);
-    
+    [dopamineBase processResponse:dataString];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -58,7 +58,7 @@
     NSLog(@"There was an error");
 }
 
--(void)sendRequest:(RequestType*) requestType{
+-(void)sendRequest:(RequestType*) requestType andEventName:(NSString *)eventName{
     NSURL* url = [NSURL alloc];
     
     if(requestType == INIT)
@@ -77,13 +77,13 @@
     
     
     NSString *jsonString;
-    NSString *requestString = @"track button pushed";
+    NSString *requestString = eventName;
     if(requestType == INIT)
         jsonString = [self getInitRequest];
     else if (requestType == TRACK)
         jsonString = [self getTrackRequest:requestString]; //I have a default eventName for now.
     else if (requestType == REWARD)
-        url = [uriBuilder getURI:@"/reinforce/"]; //change this
+        jsonString = [self getReinforceRequest:requestString]; //change this
     [request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
     
     [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
@@ -295,6 +295,58 @@
     return jsonString;
 }
 
+-(NSString*)getReinforceRequest: (NSString*) eventName
+{
+    NSString* jsonString;
+    NSError* error;
+    
+    
+    NSArray* keyArray = [[dopamineBase metaData] allKeys];
+    NSArray* valueArray = [[dopamineBase metaData] allValues];
+    NSMutableArray* mutableMetaDataArray = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [keyArray count]; i++)
+    {
+        NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
+        [tempDict setObject:[valueArray objectAtIndex:i] forKey:[keyArray objectAtIndex:i]];
+        [mutableMetaDataArray addObject:tempDict];
+    }
+    
+    NSArray* pKeyArray = [[dopamineBase persistentMetaData] allKeys];
+    NSArray* pValueArray = [[dopamineBase persistentMetaData] allValues];
+    NSMutableArray* mutablePMetaDataArray = [[NSMutableArray alloc] init];
+    
+    for(int i = 0; i < [pKeyArray count]; i++)
+    {
+        NSMutableDictionary* PTempDict = [[NSMutableDictionary alloc] init];
+        [PTempDict setObject:[pValueArray objectAtIndex:i] forKey:[pKeyArray objectAtIndex:i]];
+        [mutablePMetaDataArray addObject:PTempDict];
+    }
+    
+    [mutableMetaDataArray addObject:mutablePMetaDataArray];
+    
+    
+    //Creating MetaData JSONString
+    NSData* metaDataData = [NSJSONSerialization dataWithJSONObject:mutableMetaDataArray options:NSJSONWritingPrettyPrinted error:&error];
+    
+    //Creating trackDict
+    NSMutableDictionary* reinforceDict = [[NSMutableDictionary alloc] initWithDictionary:[self getBaseRequest]];
+    [reinforceDict setObject:eventName forKey:json_EVENTNAME_string];
+    [reinforceDict setObject:mutableMetaDataArray forKey:json_METADATA_keyvaluearray];
+    
+    NSData* reinforceRequest = [NSJSONSerialization dataWithJSONObject:reinforceDict options:NSJSONWritingPrettyPrinted error:&error];
+    
+    jsonString = [[NSMutableString alloc] initWithData:reinforceRequest encoding:NSUTF8StringEncoding];
+    
+    if([dopamineBase metaData] != NULL)
+    {
+        [[dopamineBase metaData] removeAllObjects];
+    }
+    
+    NSLog(@"This is the Reinforce Request: %@", jsonString);
+    
+    return jsonString;
+}
 
 
 -(NSString*)getBuildID

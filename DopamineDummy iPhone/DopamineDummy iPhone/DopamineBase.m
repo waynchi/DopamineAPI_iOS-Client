@@ -131,26 +131,54 @@
 
 -(void) sendInitRequest
 {
-    DopamineRequest* dopamineRequest = [[DopamineRequest alloc] init:self];
+    if(_dopamineRequest == NULL)
+    {
+        _dopamineRequest = [[DopamineRequest alloc] init:self];
+    }
     RequestType* requestType = INIT;
     //        NSAssert(requestType!=NULL, @"INIT not working");
-    [dopamineRequest sendRequest:requestType];
+    [_dopamineRequest sendRequest:requestType andEventName:@"Init Request"];
 }
 
-+(NSJSONSerialization*) getBaseRequest
+-(void) track:(NSString *)eventName
 {
-    // put stuff into json object
-    // utc time and local time
-    return nil;
+    if(_dopamineRequest == NULL)
+    {
+        _dopamineRequest = [[DopamineRequest alloc] init:self];
+    }
+    RequestType* requestType = TRACK;
+    //        NSAssert(requestType!=NULL, @"INIT not working");
+    [_dopamineRequest sendRequest:requestType andEventName:eventName];
+}
+-(void) reinforce:(NSString *)eventName:(NSString *)eventName
+{
+    if(_dopamineRequest == NULL)
+    {
+        _dopamineRequest = [[DopamineRequest alloc] init:self];
+    }
+    RequestType* requestType = REWARD;
+    //        NSAssert(requestType!=NULL, @"INIT not working");
+    [_dopamineRequest sendRequest:requestType andEventName:eventName];
 }
 
-+(NSString*) getInitRequest
+-(void) processResponse:(NSString *)response
 {
-    
-    // put stuff into json object
-    // utc time and local time
-    return nil;
 }
+
+//+(NSJSONSerialization*) getBaseRequest
+//{
+//    // put stuff into json object
+//    // utc time and local time
+//    return nil;
+//}
+//
+//+(NSString*) getInitRequest
+//{
+//    
+//    // put stuff into json object
+//    // utc time and local time
+//    return nil;
+//}
 
 //////////////////////////////////////
 //
