@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="htN-wO-MfH">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -24,7 +23,6 @@
                                 </state>
                                 <connections>
                                     <action selector="tButton:" destination="htN-wO-MfH" eventType="touchUpInside" id="OFz-B8-JNZ"/>
-                                    <action selector="trackButton:" destination="htN-wO-MfH" eventType="touchUpInside" id="HMq-iH-4sE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ddk-1V-H5C">
@@ -48,12 +46,12 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="buttonTapped:" destination="htN-wO-MfH" eventType="touchUpInside" id="1mD-Mf-c06"/>
                                     <action selector="iButton:" destination="htN-wO-MfH" eventType="touchUpInside" id="OiM-yo-7de"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nothing Pressed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZB-ve-9hh">
-                                <rect key="frame" x="96" y="89" width="128" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reward or Feedback" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZB-ve-9hh">
+                                <rect key="frame" x="80" y="135" width="160" height="21"/>
+                                <color key="backgroundColor" red="0.17216927892531136" green="0.86292034646739135" blue="0.63786895150335199" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -63,12 +61,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="abo-3d-xA3"/>
                     <connections>
-                        <outlet property="Response" destination="kZB-ve-9hh" id="gae-ag-AXW"/>
-                        <outlet property="buttonReinforce" destination="fop-rg-OEP" id="Bdh-dx-en7"/>
-                        <outlet property="iButton" destination="RA4-iL-jTz" id="ONN-IG-pyT"/>
-                        <outlet property="initButton" destination="RA4-iL-jTz" id="enU-PA-GHa"/>
                         <outlet property="response" destination="kZB-ve-9hh" id="oyL-2K-INX"/>
-                        <outlet property="trackButton" destination="sPd-jB-TCf" id="Xdn-HC-aSj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NIV-La-kCc" userLabel="First Responder" sceneMemberID="firstResponder"/>
