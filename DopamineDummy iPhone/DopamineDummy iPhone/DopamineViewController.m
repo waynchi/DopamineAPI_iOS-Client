@@ -24,18 +24,19 @@
     
         // Custom initialization.
         
-        NSLog(@"Start test Dopamine initilization");
+       /* NSLog(@"Start test Dopamine initilization");
         [MyDopamine initDopamine];
         NSLog(@"End test Dopamine initilization");
         
-        // [MyDopamine track:@"Tracking Request"];
-        NSLog(@"This is the reinfocement: %@", [MyDopamine reinforce:@"reinforcedBehavior"]);
+        [MyDopamine track:@"Tracking Request"];
+        NSLog(@"This is the reinfocement: %@", [MyDopamine reinforce:@"reinforcedBehavior"]);*/
         
         
         
     }
     return self;
 }
+
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle
 {
@@ -54,6 +55,20 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction)iButton:(UIButton *)sender
+{
+    [MyDopamine initDopamine];
+}
+- (IBAction)tButton:(UIButton *)sender
+{
+    [MyDopamine track:@"Tracking Request"];
+}
+- (IBAction)rButton:(UIButton *)sender
+{
+    [_response setText:[MyDopamine reinforce:@"reinforcedBehavior"]];
 }
 
 //-(void)callAdService{

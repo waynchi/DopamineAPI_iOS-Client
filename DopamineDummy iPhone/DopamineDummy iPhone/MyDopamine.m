@@ -40,7 +40,7 @@ static MyDopamine* sharedInstance;
     
     _dopamineBase = [[DopamineBase alloc] initWithAppID:@"53bf3dfbf572f3b63ee628de"
                                            andVersionID:@"WayneDopamineDummy"
-                                                 andKey:@"db07887eec605bff3a9ae5ae5374152ced642ed5"
+                                                 andKey:@"9163194080684f5b4fa074a7c498c8eb6f06d83f"
                                                andToken:@"493245694786310253bf3dfbf572f3b63ee628de"
                      ];
     

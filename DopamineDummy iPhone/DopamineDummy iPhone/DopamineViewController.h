@@ -18,8 +18,17 @@
 //@property (nonatomic, strong) IBOutlet UIImageView *adImageView;
 
 
+@property (strong, nonatomic) IBOutlet UILabel *response;
+
+- (IBAction)iButton:(id)sender;
+- (IBAction)tButton:(id)sender;
+- (IBAction)rButton:(id)sender;
+
+
+
 //- (void)callAdService;
 //- (IBAction)adButtonPushed:(id) sender;
+
 - (id)init;
 
 @end
