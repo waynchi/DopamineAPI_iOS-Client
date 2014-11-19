@@ -2,7 +2,7 @@
 //  DopamineRequest.m
 //  DopamineDummy iPhone
 //
-//  Created by Akash Desai on 9/2/14.
+//  Created by Wayne Chi on 9/2/14.
 //  Copyright (c) 2014 Dopamine. All rights reserved.
 //
 
@@ -23,7 +23,7 @@
 
 #pragma mark NSURLConnection Delegate Methods
 
-/*- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     // A response has been received, this is where we initialize the instance var you created
     // so that we can append data to it in the didReceiveData method
     // Furthermore, this method is called each time there is a redirect so reinitializing it
@@ -49,14 +49,13 @@
     // You can parse the stuff in your instance variable now
     NSString* dataString = [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding];
     NSLog(@"Connection Finished Loading With a Response: %@", dataString);
-    [dopamineBase processResponse:dataString];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // The request has failed for some reason!
     // Check the error var
     NSLog(@"There was an error");
-}*/
+}
 
 -(NSString*)sendRequest:(RequestType*) requestType andEventName:(NSString *)eventName{
     NSURL* url = [NSURL alloc];
@@ -89,7 +88,14 @@
     [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
     
     // Create url connection and fire request
-  //  NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (requestType != REWARD) {
+        NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        NSLog(@"Async Call");
+        return @"NULL";
+    }
+    else
+    {
+  //
     
     //NSURLRequest * urlRequest = [NSURLRequest re];
     NSURLResponse * response = nil;
@@ -115,25 +121,7 @@
     
     NSLog(@"There was a connection error");
     return @"Failure";
-   
-    
-    /*[request setValue:[NSString stringWithFormat:@"%d", [jsonString length]] forHTTPHeaderField:@"Content-length"];
-    
-    [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    //NSURLConnection *connection = [[NSURLConnection alloc] init];
-    //[connection initWithRequest:request delegate:self startImmediately:YES];
-    NSData* responseData;
-    responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:NULL error:NULL];
-    
-    NSString* response = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    
-    //To Debug buildID
-    NSLog(@"This is %@", [self getBuildID]);
-    
-    // parse response
-    NSLog(@"This is the Response: %@", response);*/
-    
+    }
 }
 
 -(NSDictionary*)getBaseRequest

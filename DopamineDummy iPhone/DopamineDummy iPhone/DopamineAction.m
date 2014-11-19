@@ -2,7 +2,7 @@
 //  DopamineAction.m
 //  DopamineDummy iPhone
 //
-//  Created by Akash Desai on 9/4/14.
+//  Created by Wayne Chi on 9/4/14.
 //  Copyright (c) 2014 Dopamine. All rights reserved.
 //
 
