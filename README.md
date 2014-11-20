@@ -70,8 +70,6 @@ static MyDopamine* sharedInstance;
                                                  andKey:@"9163194080684f5b4fa074a7c498c8eb6f06d83f"
                                                andToken:@"493245694786310253bf3dfbf572f3b63ee628de"
                      ];
-    
-    [_dopamineBase addAction:_clickReinforcementButton];
 
     //Sending Init Request to the Server
     [_dopamineBase sendInitRequest];
@@ -96,9 +94,9 @@ The `versionID` can be any string (i.e.'Android v4.3.1', 'iOS Clinical v7.3', 'F
 <br><br>
 ##1.3) Initialize the client and run your app
 In the last step, you created the `Dopamine.init()` method. You need to call that method as soon as the app boots to make the tracking and reinforcement methods available to the rest of the app. 
-**Copy&Paste this line into the `onCreate()` method of your app's main activity:**
-```java
-Dopamine.init( getApplicationContext() );
+**Copy&Paste this line into the `init` method of your app's main activity:**
+```Objective-C
+[MyDopamine initDopamine];
 ```
 <br>
 ##1.4) Now run your app!
@@ -108,10 +106,10 @@ When you initialize your app for the first time, the API will record that you cr
 <hr>
 #2) Track your first event
 ##2.1) Place the tracking code
-Tracking events help you understand you're users and it helps the Dopamine algortoms learn how to respond to users. 
+Tracking events help you understand your users and it helps the Dopamine algorithm learn how to respond to users. 
 **To track an event, paste this code so that it will run whenever the event occurs.**
-```java
-Dopamine.track("eventName");
+```Objective-C
+[MyDopamine track:@"eventname"];
 ```
 The argument, `eventName`, is a label you can use to track and analyze how and when this event happens in your app. 
 Try tracking when an button on your apps home screen is tapped. 
@@ -121,90 +119,166 @@ Run your app and trigger the event tracking code you placed. Look for the record
 <br><br>
 <hr>
 #3) Reinforce your first action
-If a user is rewared for an action, they are more likely to reapeat that action. But if you reward them everytime, they quickly learn to ignore it. So when and how should you reward them and when should you just give them feedback?
+If a user is rewared for an action, they are more likely to repeat that action. But if you reward them everytime, they quickly learn to ignore it. So when and how should you reward them and when should you just give them feedback?
 After a user completes a target action, use the `.reinforce()` method to ask if now is the right time to reward a user. Let's prepare your project so that you can use `.reinforce()` in your app.
 <br>
 ##3.1) Tell the client about your reinforcement functions
-When the API desides that it's the right time to reward a user for completing your tagerget action, it triger one of your "reinforcement fucntions". A "reward functions" when it's the right time to reward a user or a "feedback functions" when it desides not to reward the user. A reward function can be anything(app enhancement, notification, animation) that makes the user feel good. A feedback function dryly inform a user that they completed the action. These can be subtle (a button changes color, a screen advances to a summary screen) or overt (dice roll going poorly, slot machine wheel loosing). You don't need to write the functions yet. Just name them and let the client know that they exist. For now, make your reward a notification about what an awesome developer you are, and make your feedback a notification that the server heard your request.
+When the API desides that it's the right time to reward a user for completing your tagerget action, it triggers one of your "reinforcement fucntions". A "reward functions" when it's the right time to reward a user or a "feedback functions" when it desides not to reward the user. A reward function can be anything(app enhancement, notification, animation) that makes the user feel good. A feedback function dryly inform a user that they completed the action. These can be subtle (a button changes color, a screen advances to a summary screen) or overt (dice roll going poorly, slot machine wheel loosing). You don't need to write the functions yet. Just name them and let the client know that they exist. For now, make your reward a notification about what an awesome developer you are, and make your feedback a notification that the server heard your request.
 
-Declair the names of the reinforcement fucntions in your code from step 1.2 so that it looks like this:
+Declare the names of the reinforcement functions in your code from step 1.2 so that it looks like this:
 
-```java
-public class Dopamine extends DopamineBase{
+<br><br>
+In the .h file
+
+```Objecetive-C
+@interface MyDopamine : NSObject
+
+
+@property (nonatomic,strong) DopamineBase* dopamineBase; // -This should already be in your project
 
 // Declare Feedback Function names
-    public static final String SERVERHEARDYOU = "SeverHeardYou";
+@property (nonatomic, strong) NSString* FEEDBACKFUNCTION1;
 
 // Declare Reward Function names
-    public static final String YOUAREAWESOME = "YouAreAwesome";
-        
-    public static void init(Context c){             //  \
-        // Set Credentials                          //   |
-        appID = "yourAppID";                        //   |--This should already be 
-        versionID = "versionYouCreatedOnDashboard"; //   |--in your project.
-        key = "yourKey";                            //   |
-        token = "yourToken";                        //   |
-                                                    //   |
-        initBase(c);                                //  /
+@property (nonatomic, strong) NSString* REWARDFUNCTION1;
+
++(MyDopamine*)initDopamine;                    //  \
++(void)track:(NSString*) eventName;     	   //   | - This should already be in your project
++(NSString*)reinforce:(NSString*) eventName;   //  /
+
+@end
+```
+<br><br>
+In the .m file
+
+```Objecetive-C
+@implementation MyDopamine
+static MyDopamine* sharedInstance;
+
++(MyDopamine*)initDopamine
+{
+    if(sharedInstance == nil)
+    {
+        sharedInstance = [[MyDopamine alloc ] initSharedInstance];
     }
+    return sharedInstance;
+}
+
+-(id)initSharedInstance
+{
+    self = [super init];
+    //Everything above should already be in the project
+    
+    // Declare Feedback Function names
+    _FEEDBACKFUNCTION1 = @"feedBackFunction1";
+    
+    // Declare Reward Function names
+    _REWARDFUNCTION1 = @"rewardFunction1";
+    
+    //Everything below should already be in the project
+    _dopamineBase = [[DopamineBase alloc] initWithAppID:@"53bf3dfbf572f3b63ee628de"						
+                                           andVersionID:@"WayneDopamineDummy"							
+                                                 andKey:@"9163194080684f5b4fa074a7c498c8eb6f06d83f"		
+                                               andToken:@"493245694786310253bf3dfbf572f3b63ee628de"		
+                     ];
+
+    //Sending Init Request to the Server  																
+    [_dopamineBase sendInitRequest];																	
+    return self;																						
+}																										
+
++(void)track:(NSString *)eventname  																	
+{
+    [[sharedInstance dopamineBase] track:eventName];
+}
+
++(NSString*)reinforce:(NSString *)eventName
+{
+    return [[sharedInstance dopamineBase] reinforce:eventName];
+}
+
 ```
 <br><br>
 ##3.2) Tell the client about your target action
 Now we need to name the action that you want to reinforce and tell the client about it. For now, lets name it DEVELOPERTEST.
 
 **Paste in an action decairation so that your extention looks like this:**
-```java
-public class Dopamine extends DopamineBase{
 
-// Declare Actions with their names
-    public static final DopamineAction DEVELOPERTEST = new DopamineAction("DevTest");
+<br><br>
 
-// Declare Feedback Function names                                                      //   \
-    public static final String SERVERHEARDYOU = "ServerHeardYou";                       //   |
-                                                                                        //   |
-// Declare Reward Function names                                                        //   |
-    public static final String YOUAREAWESOME = "YouAreAwesome";                         //   |
-                                                                                        //   |
-    public static void init(Context c){                                                 //   |
-        // Set Credentials                                                              //   |
-        appID = "yourAppID";                                                            //   |--This should already be 
-        versionID = "versionYouCreatedOnDashboard";                                     //   |--in your project.
-        key = "yourKey";                                                                //   |
-        token = "yourToken";                                                            //   |
-                                                                                        //   |
-        initBase(c);                                                                    //  /
-    }
+In the .h file
+```Objective-C
+@property (nonatomic, strong) DopamineAction* DEVELOPERTEST;
+```
+
+<br><br>
+In the .m file
+```Objective-C
+@implementation MyDopamine
+-(id)initSharedInstance
+{
+    self = [super init];
+    
+    // Declare Feedback Function names
+    _FEEDBACKFUNCTION1 = @"feedBackFunction1";
+    
+    // Declare Reward Function names
+    _REWARDFUNCTION1 = @"rewardFunction1";
+
+    // Pair actions to Feedback and Reward functions
+    _DEVELOPERTEST = [[DopamineAction alloc] init:@"reinforcedBehavior"];
+    
+    _dopamineBase = [[DopamineBase alloc] initWithAppID:@"53bf3dfbf572f3b63ee628de"
+                                           andVersionID:@"WayneDopamineDummy"
+                                                 andKey:@"9163194080684f5b4fa074a7c498c8eb6f06d83f"
+                                               andToken:@"493245694786310253bf3dfbf572f3b63ee628de"
+                     ];
+    
+    [_dopamineBase addAction:_DEVELOPERTEST];
+
+    //Sending Init Request to the Server
+    [_dopamineBase sendInitRequest];
+    return self;
+}
+
 ```
 
 <br><br>
 ##3.3) Connect an action to your reinforcement function
-YOu can have lots of actions, reward functions, and feedback functions. You need to let the client know which reward/feedback fucntions are aproriet to which actions. You do this by decairing "pairings". Lets pair your action to the two reward/feedback fucntions you decaired.
+You can have lots of actions, reward functions, and feedback functions. You need to let the client know which reward/feedback fucntions are aproriet to which actions. You do this by decairing "pairings". Lets pair your action to the two reward/feedback fucntions you decaired.
 
-```java
-public class Dopamine extends DopamineBase{
+<br><br>
+In the .m file
+```Objective-C
+@implementation MyDopamine
+-(id)initSharedInstance
+{
+    self = [super init];
+    
+    // Declare Feedback Function names
+    _FEEDBACKFUNCTION1 = @"serverHeardYou";
+    
+    // Declare Reward Function names
+    _REWARDFUNCTION1 = @"youAreAwesome";
 
-// Declare Actions with their names
-    public static final DopamineAction DEVELOPERTEST = new DopamineAction("DevTest");   //   \
-                                                                                        //   |
-// Declare Feedback Function names                                                      //   |
-    public static final String SERVERHEARDYOU = "ServerHeardYou";                       //   |
-                                                                                        //   |
-// Declare Reward Function names                                                        //   |
-    public static final String YOUAREAWESOME = "YouAreAwesome";                         //   |
-                                                                                        //   |
-    public static void init(Context c){                                                 //   |
-        // Set Credentials                                                              //   |
-        appID = "yourAppID";                                                            //   |--This should already be 
-        versionID = "versionYouCreatedOnDashboard";                                     //   |--in your project.
-        key = "yourKey";                                                                //   |
-        token = "yourToken";                                                            //   /
+    // Pair actions to Feedback and Reward functions
+    _DEVELOPERTEST = [[DopamineAction alloc] init:@"reinforcedBehavior"];
+    [_DEVELOPERTEST pairFeedback:_FEEDBACKFUNCTION1];									\\ - Here you pair a feedback to the action
+    [_DEVELOPERTEST pairReward:_REWARDFUNCTION1];										\\ - Here you pair a reward to the action
+    
+    _dopamineBase = [[DopamineBase alloc] initWithAppID:@"53bf3dfbf572f3b63ee628de"
+                                           andVersionID:@"WayneDopamineDummy"
+                                                 andKey:@"9163194080684f5b4fa074a7c498c8eb6f06d83f"
+                                               andToken:@"493245694786310253bf3dfbf572f3b63ee628de"
+                     ];
+    
+    [_dopamineBase addAction:_DEVELOPERTEST];
 
-        // Pair Actions to Reinforcement Functions
-        DEVELOPERTEST.pairFeedback(SERVERHEARDYOU);
-        DEVELOPERTEST.pairReward(YOUAREAWESOME);
+    //Sending Init Request to the Server
+    [_dopamineBase sendInitRequest];
+    return self;
+}
 
-        initBase(c); 
-    }
 ```
 
 <br><br>
@@ -213,26 +287,26 @@ Nowe we need to write the reinforcment fuctions that we told the client about an
 
 
 **paste this code so that it will run whenever a user completes your target action:** 
-```java
+```Objective-C
 
-public void youAreAwesome( ){
-    Toast.makeText(this, "You Are Awesome!!", Toast.LENGTH_SHORT).show();
+-(void) youAreAwesome( ){
+    //Whatever you want to happen when you get a reward!
 }
 
-public void ServerHeardYou( ){
-    Toast.makeText(context, "The Server received your call", Toast.LENGTH_SHORT).show();
+-(void) ServerHeardYou( ){
+    //Whatever you want to happen when you get a feedback.
 }
 
-String result = Dopamine.DEVELOPERTEST.reinforce();
+NSString result = [MyDopamine reinforce:@"reinforcedBehavior"];  // - The string passed in should be the same as the string you initialized your action with
 
-if(result.equals(Dopamine.YOUAREAWESOME)){
+if(result == "youAreAwesome"){
   youAreAwesome();
 } 
-else if(result.equals(Dopamine.SERVERHEARDYOU)){
+else if(result == "serverHeardYou"){
   serverHeardYou();
 }
 ```
-During initialization, the client creates the object `Dopamine.DEVELOPERTEST` and gives it the method `.reinforce()`. The client also tells the server what reinforcement fucntions were paired to the `DEVELOPERTEST` action, so it knows what responses are valid. 
+The client tells the server what reinforcement functions were paired to the `DEVELOPERTEST` action, so it knows what responses are valid. 
 <br><br>
 ##3.4) Run your app
 
