@@ -8,6 +8,7 @@
 
 #import "DopamineBase.h"
 #import <AdSupport/ASIdentifierManager.h>
+#import <UIKit/UIKit.h>
 #include <CommonCrypto/CommonDigest.h>
 
 @implementation DopamineBase

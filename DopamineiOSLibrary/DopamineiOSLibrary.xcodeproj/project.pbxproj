@@ -1,0 +1,413 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1805854E1A1D61C2008C61C0 /* libDopamineiOSLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 180585421A1D61C2008C61C0 /* libDopamineiOSLibrary.a */; };
+		180585661A1D6211008C61C0 /* DopamineRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805855E1A1D6211008C61C0 /* DopamineRequest.m */; };
+		180585671A1D6211008C61C0 /* URIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805855F1A1D6211008C61C0 /* URIBuilder.m */; };
+		180585681A1D6211008C61C0 /* DopamineBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 180585611A1D6211008C61C0 /* DopamineBase.m */; };
+		180585691A1D6211008C61C0 /* DopamineConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 180585631A1D6211008C61C0 /* DopamineConstants.m */; };
+		1805856A1A1D6211008C61C0 /* DopamineAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 180585651A1D6211008C61C0 /* DopamineAction.m */; };
+		1805856B1A1D62AF008C61C0 /* URIBuilder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1805855C1A1D6211008C61C0 /* URIBuilder.h */; };
+		1805856C1A1D62AF008C61C0 /* DopamineRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1805855D1A1D6211008C61C0 /* DopamineRequest.h */; };
+		1805856D1A1D62AF008C61C0 /* DopamineRequest.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1805855E1A1D6211008C61C0 /* DopamineRequest.m */; };
+		1805856E1A1D62AF008C61C0 /* URIBuilder.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1805855F1A1D6211008C61C0 /* URIBuilder.m */; };
+		1805856F1A1D62AF008C61C0 /* DopamineBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 180585601A1D6211008C61C0 /* DopamineBase.h */; };
+		180585701A1D62AF008C61C0 /* DopamineBase.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 180585611A1D6211008C61C0 /* DopamineBase.m */; };
+		180585711A1D62AF008C61C0 /* DopamineConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 180585621A1D6211008C61C0 /* DopamineConstants.h */; };
+		180585721A1D62AF008C61C0 /* DopamineConstants.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 180585631A1D6211008C61C0 /* DopamineConstants.m */; };
+		180585731A1D62AF008C61C0 /* DopamineAction.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 180585641A1D6211008C61C0 /* DopamineAction.h */; };
+		180585741A1D62AF008C61C0 /* DopamineAction.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = 180585651A1D6211008C61C0 /* DopamineAction.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1805854F1A1D61C2008C61C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1805853A1A1D61C2008C61C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 180585411A1D61C2008C61C0;
+			remoteInfo = DopamineiOSLibrary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		180585401A1D61C2008C61C0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				1805856B1A1D62AF008C61C0 /* URIBuilder.h in CopyFiles */,
+				1805856C1A1D62AF008C61C0 /* DopamineRequest.h in CopyFiles */,
+				1805856D1A1D62AF008C61C0 /* DopamineRequest.m in CopyFiles */,
+				1805856E1A1D62AF008C61C0 /* URIBuilder.m in CopyFiles */,
+				1805856F1A1D62AF008C61C0 /* DopamineBase.h in CopyFiles */,
+				180585701A1D62AF008C61C0 /* DopamineBase.m in CopyFiles */,
+				180585711A1D62AF008C61C0 /* DopamineConstants.h in CopyFiles */,
+				180585721A1D62AF008C61C0 /* DopamineConstants.m in CopyFiles */,
+				180585731A1D62AF008C61C0 /* DopamineAction.h in CopyFiles */,
+				180585741A1D62AF008C61C0 /* DopamineAction.m in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		180585421A1D61C2008C61C0 /* libDopamineiOSLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDopamineiOSLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1805854D1A1D61C2008C61C0 /* DopamineiOSLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DopamineiOSLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		180585531A1D61C2008C61C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1805855C1A1D6211008C61C0 /* URIBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URIBuilder.h; sourceTree = "<group>"; };
+		1805855D1A1D6211008C61C0 /* DopamineRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DopamineRequest.h; sourceTree = "<group>"; };
+		1805855E1A1D6211008C61C0 /* DopamineRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DopamineRequest.m; sourceTree = "<group>"; };
+		1805855F1A1D6211008C61C0 /* URIBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URIBuilder.m; sourceTree = "<group>"; };
+		180585601A1D6211008C61C0 /* DopamineBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DopamineBase.h; sourceTree = "<group>"; };
+		180585611A1D6211008C61C0 /* DopamineBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DopamineBase.m; sourceTree = "<group>"; };
+		180585621A1D6211008C61C0 /* DopamineConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DopamineConstants.h; sourceTree = "<group>"; };
+		180585631A1D6211008C61C0 /* DopamineConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DopamineConstants.m; sourceTree = "<group>"; };
+		180585641A1D6211008C61C0 /* DopamineAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DopamineAction.h; sourceTree = "<group>"; };
+		180585651A1D6211008C61C0 /* DopamineAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DopamineAction.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1805853F1A1D61C2008C61C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1805854A1A1D61C2008C61C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1805854E1A1D61C2008C61C0 /* libDopamineiOSLibrary.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		180585391A1D61C2008C61C0 = {
+			isa = PBXGroup;
+			children = (
+				180585441A1D61C2008C61C0 /* DopamineiOSLibrary */,
+				180585511A1D61C2008C61C0 /* DopamineiOSLibraryTests */,
+				180585431A1D61C2008C61C0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		180585431A1D61C2008C61C0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				180585421A1D61C2008C61C0 /* libDopamineiOSLibrary.a */,
+				1805854D1A1D61C2008C61C0 /* DopamineiOSLibraryTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		180585441A1D61C2008C61C0 /* DopamineiOSLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				1805855C1A1D6211008C61C0 /* URIBuilder.h */,
+				1805855D1A1D6211008C61C0 /* DopamineRequest.h */,
+				1805855E1A1D6211008C61C0 /* DopamineRequest.m */,
+				1805855F1A1D6211008C61C0 /* URIBuilder.m */,
+				180585601A1D6211008C61C0 /* DopamineBase.h */,
+				180585611A1D6211008C61C0 /* DopamineBase.m */,
+				180585621A1D6211008C61C0 /* DopamineConstants.h */,
+				180585631A1D6211008C61C0 /* DopamineConstants.m */,
+				180585641A1D6211008C61C0 /* DopamineAction.h */,
+				180585651A1D6211008C61C0 /* DopamineAction.m */,
+			);
+			path = DopamineiOSLibrary;
+			sourceTree = "<group>";
+		};
+		180585511A1D61C2008C61C0 /* DopamineiOSLibraryTests */ = {
+			isa = PBXGroup;
+			children = (
+				180585521A1D61C2008C61C0 /* Supporting Files */,
+			);
+			path = DopamineiOSLibraryTests;
+			sourceTree = "<group>";
+		};
+		180585521A1D61C2008C61C0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				180585531A1D61C2008C61C0 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		180585411A1D61C2008C61C0 /* DopamineiOSLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 180585561A1D61C2008C61C0 /* Build configuration list for PBXNativeTarget "DopamineiOSLibrary" */;
+			buildPhases = (
+				1805853E1A1D61C2008C61C0 /* Sources */,
+				1805853F1A1D61C2008C61C0 /* Frameworks */,
+				180585401A1D61C2008C61C0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DopamineiOSLibrary;
+			productName = DopamineiOSLibrary;
+			productReference = 180585421A1D61C2008C61C0 /* libDopamineiOSLibrary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		1805854C1A1D61C2008C61C0 /* DopamineiOSLibraryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 180585591A1D61C2008C61C0 /* Build configuration list for PBXNativeTarget "DopamineiOSLibraryTests" */;
+			buildPhases = (
+				180585491A1D61C2008C61C0 /* Sources */,
+				1805854A1A1D61C2008C61C0 /* Frameworks */,
+				1805854B1A1D61C2008C61C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				180585501A1D61C2008C61C0 /* PBXTargetDependency */,
+			);
+			name = DopamineiOSLibraryTests;
+			productName = DopamineiOSLibraryTests;
+			productReference = 1805854D1A1D61C2008C61C0 /* DopamineiOSLibraryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1805853A1A1D61C2008C61C0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = Dopamine;
+				TargetAttributes = {
+					180585411A1D61C2008C61C0 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					1805854C1A1D61C2008C61C0 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 1805853D1A1D61C2008C61C0 /* Build configuration list for PBXProject "DopamineiOSLibrary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 180585391A1D61C2008C61C0;
+			productRefGroup = 180585431A1D61C2008C61C0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				180585411A1D61C2008C61C0 /* DopamineiOSLibrary */,
+				1805854C1A1D61C2008C61C0 /* DopamineiOSLibraryTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1805854B1A1D61C2008C61C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1805853E1A1D61C2008C61C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				180585671A1D6211008C61C0 /* URIBuilder.m in Sources */,
+				180585681A1D6211008C61C0 /* DopamineBase.m in Sources */,
+				180585661A1D6211008C61C0 /* DopamineRequest.m in Sources */,
+				180585691A1D6211008C61C0 /* DopamineConstants.m in Sources */,
+				1805856A1A1D6211008C61C0 /* DopamineAction.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		180585491A1D61C2008C61C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		180585501A1D61C2008C61C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 180585411A1D61C2008C61C0 /* DopamineiOSLibrary */;
+			targetProxy = 1805854F1A1D61C2008C61C0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		180585541A1D61C2008C61C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		180585551A1D61C2008C61C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		180585571A1D61C2008C61C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		180585581A1D61C2008C61C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1805855A1A1D61C2008C61C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DopamineiOSLibraryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1805855B1A1D61C2008C61C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DopamineiOSLibraryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1805853D1A1D61C2008C61C0 /* Build configuration list for PBXProject "DopamineiOSLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				180585541A1D61C2008C61C0 /* Debug */,
+				180585551A1D61C2008C61C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		180585561A1D61C2008C61C0 /* Build configuration list for PBXNativeTarget "DopamineiOSLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				180585571A1D61C2008C61C0 /* Debug */,
+				180585581A1D61C2008C61C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		180585591A1D61C2008C61C0 /* Build configuration list for PBXNativeTarget "DopamineiOSLibraryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1805855A1A1D61C2008C61C0 /* Debug */,
+				1805855B1A1D61C2008C61C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1805853A1A1D61C2008C61C0 /* Project object */;
+}
