@@ -18,7 +18,7 @@ Pro Tip: Check out [the Android demo app](https://github.com/DopamineLabs/Dopami
 #1) Initialize the API Client and run your app.
 ##1.1) Add the API Client to your project  
 
-**Downlaod the file `libDopamineiOSLibrary.a` from this repo. In order to link the library, follow the official instructions here: https://developer.apple.com/library/ios/technotes/iOSStaticLibraries/Articles/configuration.html. Give yourself a high five.**
+**Download the file `libDopamineiOSLibrary.a` from this repo. In order to link the library, follow the official instructions here: https://developer.apple.com/library/ios/technotes/iOSStaticLibraries/Articles/configuration.html. Give yourself a high five.**
 
 <br><br>
 
@@ -101,7 +101,7 @@ In the last step, you created the `Dopamine.init()` method. You need to call tha
 <br>
 ##1.4) Now run your app!
 <!-- Do they need any special instructions for where to look to see the http response? Is there some way to read the console from thier laptop? is it ok if they use a vertual device on thier laptop? -->
-When you initialize your app for the first time, the API will record that you created a new 'version' and 'build'. Check them out on your [devloper Dashboard](http://dev.usedopamine.com/).
+When you initialize your app for the first time, the API will record that you created a new 'version' and 'build'. Check them out on your [developer Dashboard](http://dev.usedopamine.com/).
 <br><br>
 <hr>
 #2) Track your first event
@@ -202,7 +202,7 @@ static MyDopamine* sharedInstance;
 ##3.2) Tell the client about your target action
 Now we need to name the action that you want to reinforce and tell the client about it. For now, lets name it DEVELOPERTEST.
 
-**Paste in an action decairation so that your extention looks like this:**
+**Paste in an action declaration so that your extention looks like this:**
 
 <br><br>
 
@@ -326,21 +326,16 @@ Here's whats in the GIT:
 
 ```
  /
-  dopamineAPI.jar
-  dopamine/
-    api/
-        CustomSSLSocketFactory.java
-        CustomX509TrustManager.java
-        Dopamine.java
-        DopamineRequest.java
-        URIBuilder.java
+  DopamineDummy iPhone
+  DopamineiOSLibrary
+  libDopamineiOSLibrary.a
 ```
 
-The `dopamine/` folder caontains everything that is compiled in the JAR file. You only need the JAR file to use the API Client, but the source is there incase you'd like to take a closer look or customize it.
+The `DopamineiOSLibrary/` folder contains everything that is compiled in the library file (libDopamineiOSLibrary.a). You only need the library file to use the API Client, but the source is there incase you'd like to take a closer look or customize it.
 <br><br>
 
 ##Can I see an example app?
-Yes! [Our demo Android app](https://github.com/DopamineLabs/DopamineAPI_Android-DemoApp) is preconfigured to run right out of the box and give you a feel for how the different parts of the andoid API Client work together.
+Yes! [Our demo iOS app](https://github.com/DopamineLabs/DopamineAPI_iOS-Client/tree/master/DopamineDummy%20iPhone) is preconfigured to run right out of the box and give you a feel for how the different parts of the andoid API Client work together.
 <br><br>
 
 ##What does the init() call do?
